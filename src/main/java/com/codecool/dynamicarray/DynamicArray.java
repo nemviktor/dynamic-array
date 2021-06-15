@@ -10,11 +10,17 @@ public class DynamicArray {
     }
 
     public int getCapacity() {
+        DynamicArray myArray = new DynamicArray(15);
+        
         return 0;
     }
 
     public int size() {
-        return 0;
+        int i = 0;
+        for (Integer my_int : array) {
+            i++;
+        }
+        return i;
     }
 
     public void add(int value) {
