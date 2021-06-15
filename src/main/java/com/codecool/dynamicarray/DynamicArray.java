@@ -4,15 +4,24 @@ public class DynamicArray {
     private int[] array;
 
     public DynamicArray(int capacity) {
+        array = new int[capacity];
     }
 
     public DynamicArray() {
     }
 
     public int getCapacity() {
-        DynamicArray myArray = new DynamicArray(15);
-        
-        return 0;
+        int i =0;
+        while (true) {
+            try{
+                array[i] = i+1;
+                i++;
+            } catch (ArrayIndexOutOfBoundsException exp) {
+//                System.out.println("Exception caught!");
+                break;
+            }
+        }
+        return i;
     }
 
     public int size() {
@@ -24,6 +33,19 @@ public class DynamicArray {
     }
 
     public void add(int value) {
+        int currentSize = size();
+        int currentIndex = 0;
+//        for (int i=0;i<currentSize;i++) {
+//            if (array[i] == null) {
+//
+//            }
+//        }
+        try {
+            this.array[currentIndex+1] = value;
+        } catch (Exception e) {
+            System.out.println("Cannot add element. Index out of range.");
+        }
+        System.out.println(size());
     }
 
     public int get(int index) {
