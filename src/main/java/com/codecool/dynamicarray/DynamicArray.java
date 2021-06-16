@@ -5,6 +5,9 @@ public class DynamicArray {
 
     public DynamicArray(int capacity) {
         array = new int[capacity];
+//        if (capacity == 4) {
+//            array = new int[];
+//        }
     }
 
     public DynamicArray() {
@@ -35,21 +38,30 @@ public class DynamicArray {
     public void add(int value) {
         int currentSize = size();
         int currentIndex = 0;
-//        for (int i=0;i<currentSize;i++) {
-//            if (array[i] == null) {
-//
-//            }
-//        }
-        try {
-            this.array[currentIndex+1] = value;
-        } catch (Exception e) {
-            System.out.println("Cannot add element. Index out of range.");
+        for (int i=0;i<currentSize;i++) {
+            currentIndex = i;
+            if (array[i] == 0) {
+                break;
+            }
         }
-        System.out.println(size());
+
+        if (currentIndex != size()-1) {
+            array[currentIndex] = value;
+        } else {
+            int len = array.length;
+            array = new int[2*len];
+            array[len] = value;
+        }
     }
 
     public int get(int index) {
-        return 0;
+        try {
+            System.out.println(array[index]);
+            return array[index];
+        } catch (ArrayIndexOutOfBoundsException exp) {
+            System.out.println(exp);
+            return 0;
+        }
     }
 
     public void remove(int indexToBeRemoved) {
