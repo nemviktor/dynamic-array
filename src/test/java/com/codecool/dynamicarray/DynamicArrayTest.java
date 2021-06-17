@@ -12,7 +12,7 @@ class DynamicArrayTest {
 
     @BeforeEach
     void setUp() {
-        arrayUnderTest = new DynamicArray(15);
+        arrayUnderTest = new DynamicArray(0);
     }
 
     @Test
@@ -51,7 +51,6 @@ class DynamicArrayTest {
     @Order(4)
     void add_multipleValues_changesSizeAccordingly() {
         int expected = 3;
-
         feedArray(3);
 
         int size = arrayUnderTest.size();
