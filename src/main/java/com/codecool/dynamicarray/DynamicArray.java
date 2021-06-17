@@ -3,112 +3,95 @@ package com.codecool.dynamicarray;
 
 public class DynamicArray {
     private int[] array;
-    private int lastAddedIndex = -1;
+    private int capacity;
+    private int size = 0;
 
     public DynamicArray(int capacity) {
-        array = new int[capacity];
+        this.capacity = capacity;
     }
 
     public DynamicArray() {
-        array = new int[4];
+        this.capacity = 4;
     }
 
     public int getCapacity() {
-        int i =0;
-        while (true) {
-            try{
-                array[i] = i+1;
-                i++;
-            } catch (ArrayIndexOutOfBoundsException exp) {
-//                throw exp;
-                return i;
-            }
-        }
+        return capacity;
     }
 
     public int size() {
-        try{
-            int i = 0;
-            for (Integer my_int : array) {
-                i++;
-            }
-            return i;
-        } catch (NullPointerException exp) {
-            return 0;
-        }
-
+        return size;
     }
 
     public void add(int value) {
-        int currentSize = size();
-        System.out.println("current size: " + currentSize);
-        System.out.println("So double it before adding a new element!");
-        if (currentSize != 0) {
-            if (lastAddedIndex != size()-1) {
-                array[lastAddedIndex+1] = value;
+        if (size<capacity) {
+            if (size == 0) {
+                array = new int[1];
+                array[0] = value;
+                size = 1;
             } else {
-                int len = array.length; //1
-                int[] new_array = new int[2*len]; //2
-                for (int i=0;i<len;i++) {
-                    new_array[i] = array[i];
+                int[] temp = new int[size+1];
+                for (int i=0;i<size;i++) {
+                    temp[i] = array[i];
                 }
-                new_array[len] = value;
-                array = new_array;
+                temp[size] = value;
+                array = temp;
+                size = array.length;
             }
-            lastAddedIndex++;
-        } else {
-            array = new int[1];
-            array[0] = value;
-            lastAddedIndex++;
+        } else if (size == capacity) {
+            capacity = 2 * capacity;
+            int[] temp = new int[size+1];
+            for (int i=0;i<size;i++) {
+                temp[i] = array[i];
+            }
+            temp[size] = value;
+            array = temp;
+            size = array.length;
         }
-        for (int _myint : array) {
-            System.out.print(_myint);
-            System.out.print(",");
-        }
-        System.out.print("\n");
     }
 
     public int get(int index) {
-        try {
-            System.out.println(array[index]);
-            return array[index];
-        } catch (ArrayIndexOutOfBoundsException exp) {
+        if (index >= size) {
             throw new ArrayIndexOutOfBoundsException("Index out of bounds");
+        } else {
+            return array[index];
         }
     }
 
     public void remove(int indexToBeRemoved) {
-        int[] temp = new int[size()-1];
-        try {
+        if (indexToBeRemoved < size && indexToBeRemoved > -1) {
+            int[] temp = new int[size-1];
             for (int i=0;i<indexToBeRemoved;i++) {
                 temp[i] = array[i];
             }
-            for (int i=indexToBeRemoved+1;i<size();i++) {
+            for (int i=indexToBeRemoved+1;i<size;i++) {
                 temp[i-1] = array[i];
             }
             array = temp;
-        } catch (ArrayIndexOutOfBoundsException exp) {
+            size = array.length;
+        } else {
             throw new ArrayIndexOutOfBoundsException("Index out of bounds");
         }
     }
 
     public void insert(int index, int newValue) {
-        try {
-            if (index > size()) {
-                array[size()-1] = newValue;
-            } else {
-                int[] temp = new int[size()+1];
-                for (int i=0;i<index;i++) {
-                    temp[i] = array[i];
-                }
-                temp[index] =newValue;
-                for (int i=index;i<size();i++) {
-                    temp[i+1] = array[i];
-                }
-                array = temp;
+        if (index < size && index > -1) {
+            int[] temp = new int[size+1];
+            for (int i=0;i<index;i++) {
+                temp[i] = array[i];
             }
-        } catch (ArrayIndexOutOfBoundsException exp) {
+            temp[index] =newValue;
+            for (int i=index;i<size;i++) {
+                temp[i+1] = array[i];
+            }
+            array = temp;
+            size = array.length;
+        } else if (index >= size) {
+            array[size-1] = newValue;
+        } else {
             throw new ArrayIndexOutOfBoundsException();
+        }
+        if (size == capacity) {
+            capacity = 2 * capacity;
         }
     }
 

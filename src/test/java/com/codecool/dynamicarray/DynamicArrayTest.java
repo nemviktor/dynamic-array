@@ -12,7 +12,7 @@ class DynamicArrayTest {
 
     @BeforeEach
     void setUp() {
-        arrayUnderTest = new DynamicArray(0);
+        arrayUnderTest = new DynamicArray(15);
     }
 
     @Test
@@ -184,7 +184,7 @@ class DynamicArrayTest {
         int newElement = 987;
 
         arrayUnderTest.insert(100, newElement);
-        int lastElement = arrayUnderTest.get(5);
+        int lastElement = arrayUnderTest.get(4);
 
         assertEquals(newElement, lastElement);
     }
@@ -197,7 +197,7 @@ class DynamicArrayTest {
         int newElement = 987;
 
         arrayUnderTest.insert(100, newElement);
-        int lastElement = arrayUnderTest.get(5);
+        int lastElement = arrayUnderTest.get(4);
 
         assertEquals(newElement, lastElement);
         assertEquals(10, arrayUnderTest.getCapacity());
