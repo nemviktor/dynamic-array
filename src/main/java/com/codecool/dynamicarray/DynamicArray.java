@@ -8,10 +8,12 @@ public class DynamicArray {
 
     public DynamicArray(int capacity) {
         this.capacity = capacity;
+        array = new int[this.capacity];
     }
 
     public DynamicArray() {
         this.capacity = 4;
+        array = new int[this.capacity];
     }
 
     public int getCapacity() {
